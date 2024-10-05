@@ -233,8 +233,6 @@
         <button id="delete-btn" onclick="deleteMessages()">Delete</button>
         <div id="model-selector">
           <select id="model-options" onchange="changeModel()">
-            <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
-            <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
             <option value="stable-diffusion">stable-diffusion</option>
           </select>
         </div>
@@ -254,7 +252,7 @@
 
   <script>
     var conversation = [];
-    var selectedModel = "gpt-3.5-turbo-16k";
+    var selectedModel = "stable-diffusion";
     var sequence = 1;
 
     function sendMessage() {
