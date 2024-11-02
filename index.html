@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -233,7 +234,7 @@
         <button id="delete-btn" onclick="deleteMessages()">Delete</button>
         <div id="model-selector">
           <select id="model-options" onchange="changeModel()">
-            <option value="stable-diffusion">stable-diffusion</option>
+            <option value="glm-4-flash">glm-4-flash</option>
           </select>
         </div>
       </div>
@@ -243,7 +244,7 @@
   <div id="welcome-modal">
     <div id="welcome-message">
       <p>该网站为AI问答网站，可以向AI提问，AI会耐心进行解答，可以和AI聊天</p>
-      <p>欢迎进入官方QQ交流群：715434216<br>您的进群便是对我最大的支持</p>
+      <p>欢迎进入官方QQ交流群：992310237<br>您的进群便是对我最大的支持</p>
       <p>支持HTML代码在线预览</p>
       <p>PS：如遇到长时间不回复，请重试</p>
       <button onclick="closeModal()">确认</button>
@@ -252,7 +253,7 @@
 
   <script>
     var conversation = [];
-    var selectedModel = "stable-diffusion";
+    var selectedModel = "glm-4-flash";
     var sequence = 1;
 
     function sendMessage() {
@@ -269,7 +270,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer sk-sZfP68thUjF6CmEuiX5tAlm9LBtkoYOagoyCMOaXziQhOh6r",  
+          Authorization: "Bearer e6b918f22001b0f6676c39118f0252f7.W5OVT2M0wIfNFzTh",  
         },
         body: JSON.stringify({
           model: selectedModel,
@@ -279,7 +280,7 @@
           max_tokens: 160000,
         }),
       };    
-      fetch("https://api.gptgod.online/v1/chat/completions", requestOptions)
+      fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", requestOptions)
         .then(response => {
           const reader = response.body.getReader();
           const decoder = new TextDecoder();
