@@ -1,3 +1,4 @@
+
 <!DOCTYPE html> 
 <html lang="zh"> 
 <head> 
@@ -174,44 +175,46 @@
         fetchQuestion(); 
     } 
  
-    function fetchQuestion() { 
-        const categoryPrompts = { 
-            vocabulary: "从高考3500词中选择一个单词，给出该单词的中文意思或固定搭配，要求选择正确的答案", 
-            poetry: "生成一道古诗词竞赛题目，给出一句诗或诗的上一句/下一句，要求选择正确的下句/上句", 
-            history: "从中外古今历史事件中，选出一些事件，让用户选出对此事件的正确评价", 
-            idioms: "给出成语，让用户选出正确的成语释义"
-        }; 
- 
-        fetch(apiUrl, { 
-            method: "POST", 
-            headers: { 
-                "Content-Type": "application/json", 
-                "Authorization": `Bearer ${apiKey}` 
-            }, 
-            body: JSON.stringify({ 
-                model: "glm-4-flash", 
-                messages: [{ 
-                    role: "user", 
-                    content: `${categoryPrompts[currentCategory]}。选项格式必须为：{ 
-                        "question": "题目内容", 
-                        "options": ["A. 选项1", "B. 选项2", "C. 选项3", "D. 选项4"], 
-                        "answer": "A. 选项1", 
-                        "explanation": "详细解析说明" 
-                    }` 
-                }] 
-            }) 
-        }) 
-        .then(response => response.json()) 
-        .then(data => { 
-            const quiz = JSON.parse(data.choices[0].message.content); 
-            currentQuiz = quiz; 
-            displayQuestion(quiz); 
-            document.getElementById("loading").style.display = "none"; 
-        }) 
-        .catch(error => { 
-            console.error("Error:", error); 
-            setTimeout(fetchQuestion, 2000); 
-        }); 
+    function fetchQuestion() {  
+        const categoryPrompts = {  
+            vocabulary: "从高考3500词中选择一个单词，给出该单词的中文意思或固定搭配，要求选择正确的答案",  
+            poetry: "生成一道古诗词竞赛题目，给出一句诗或诗的上一句/下一句，要求选择正确的下句/上句",  
+            history: "从中外古今历史事件中，选出一些事件，让用户选出对此事件的正确评价",  
+            idioms: "给出成语，让用户选出正确的成语释义"   
+        };  
+  
+        const randomSeed = Math.random().toString(36).substring(7); // 生成随机字符串  
+  
+        fetch(apiUrl, {  
+            method: "POST",  
+            headers: {  
+                "Content-Type": "application/json",  
+                "Authorization": `Bearer ${apiKey}`  
+            },  
+            body: JSON.stringify({  
+                model: "glm-4-flash",  
+                messages: [{  
+                    role: "user",  
+                    content: `${categoryPrompts[currentCategory]} (随机数:${randomSeed})。选项格式必须为：{  
+                        "question": "题目内容",  
+                        "options": ["A. 选项1", "B. 选项2", "C. 选项3", "D. 选项4"],  
+                        "answer": "A. 选项1",  
+                        "explanation": "详细解析说明"  
+                    }`  
+                }]  
+            })  
+        })  
+        .then(response => response.json())  
+        .then(data => {  
+            const quiz = JSON.parse(data.choices[0].message.content);  
+            currentQuiz = quiz;  
+            displayQuestion(quiz);  
+            document.getElementById("loading").style.display = "none";  
+        })  
+        .catch(error => {  
+            console.error("Error:", error);  
+            setTimeout(fetchQuestion, 2000);  
+        });  
     } 
  
     function displayQuestion(quiz) { 
